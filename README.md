@@ -1,1 +1,2 @@
-# alu-scripting
+#!/bin/bash
+not empty
