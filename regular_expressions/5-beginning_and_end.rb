@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
-# The regex /^h.+?n$/ matches:
-# ^ : beginning of the string
+# The regex /h.n/ matches:
 # h : the literal character 'h'
-# .+? : one or more of any character (non-greedy)
+# . : any single character (except a newline)
 # n : the literal character 'n'
-# $ : end of the string
-puts ARGV[0].scan(/^h.+?n$/).join
+puts ARGV[0].scan(/h.n/).join
