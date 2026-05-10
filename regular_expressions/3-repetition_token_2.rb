@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# The regex /hbt+n/ matches:
-# hb : the literal characters 'hb'
-# t+ : the character 't' one or more times
-# n  : the literal character 'n'
-puts ARGV[0].scan(/hbt+n/).join
+# The regex /\d{10}/ matches:
+# \d{10} : exactly 10 digits
+puts ARGV[0].scan(/\d{10}/).join
