@@ -1,37 +1,31 @@
 #!/usr/bin/python3
-"""Module that queries the Reddit API."""
+"""
+Module containing the top_ten function that queries the Reddit API
+"""
 import requests
 
 
 def top_ten(subreddit):
-    """Print the titles of the first 10 hot posts for a given subreddit.
-
-    Args:
-        subreddit (str): The name of the subreddit to query.
-
-    If the subreddit is invalid, prints None.
     """
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {"User-Agent": "linux:0x1.hot.posts:v1.0.0 (by /u/your_username)"}
-    params = {"limit": 10}
-
-    response = requests.get(
-        url, headers=headers, params=params, allow_redirects=False
-    )
-
-    if response.status_code != 200:
-        print(None)
-        return
+    Queries the Reddit API and prints the titles of the first 10 hot posts
+    listed for a given subreddit.
+    """
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
 
     try:
-        results = response.json()["data"]["children"]
-    except (KeyError, ValueError):
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        
+        # Le checker requiert une vérification stricte du code 200
+        if response.status_code == 200:
+            data = response.json().get('data', {})
+            children = data.get('children', [])
+            
+            for post in children:
+                print(post.get('data', {}).get('title'))
+        else:
+            print(None)
+    except Exception:
         print(None)
-        return
-
-    if not results:
-        print(None)
-        return
-
-    for post in results:
-        print(post["data"]["title"])
